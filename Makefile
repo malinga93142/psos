@@ -11,6 +11,6 @@ kernel.bin: kernel.elf
 qemu: kernel.bin
 	qemu-system-i386 -drive file=kernel.bin,format=raw -serial stdio
 qemu-nox: kernel.bin
-	qemu-system-i386 -drive file=kernel.bin,format=raw -nographic
+	qemu-system-i386 -drive file=kernel.bin,format=raw -serial mon:stdio -nographic
 clean:
-	rm kernel.o kernel.bin boot.o kernel.elf
+	rm -rf kernel.o kernel.bin boot.o kernel.elf
