@@ -4,6 +4,6 @@ SECTIONS {
     .text : { *(.text) }
     . = ALIGN(4);
     .data : { *(.data) }
-    . = ALIGN(4)
+    . = ALIGN(4);
     .bss  : { *(.bss) }
 }
