@@ -2,7 +2,7 @@
 
 # ── Stage 1 Bootloader ──────────────────────────────────────────────
 # Loads sector 2 into 0x7E00, sets up GDT, enters protected mode,
-# and calls kmain32, kmain33.
+# and calls kmain32.
 # ────────────────────────────────────────────────────────────────────
 
 .code16
@@ -22,7 +22,7 @@ _start:
 		mov dl, 0x80
 		mov bx, 0x7E00
 		int 0x13
-
+    jc disk_err
 		xor ax, ax
 		mov ds, ax
 		mov ss, ax
@@ -49,7 +49,11 @@ pmode:
 hang:
 		hlt
 		jmp hang
-
+disk_err:
+    mov al, 'E'
+    mov ah, 0x0e
+    int 0x10
+    jmp hang
 # ── GDT ──────────────────────────────────────────────────────────────
 .align 8
 gdt_start:
